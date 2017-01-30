@@ -12,6 +12,12 @@ class User
 		std::string name;
 		std::string *ptr_name;
 		~User();
+
+		User operator=(User other)
+		{
+			std::string str = std::string(*other.name);
+			return User(str);
+		}
 };
 
 #endif
