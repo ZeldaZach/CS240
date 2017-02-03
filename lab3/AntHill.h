@@ -9,7 +9,7 @@ class AntHill
 		int current_ants;
 		Ant **ants;
 		int next_id;
-	
+
 	public:
 		AntHill();
 		~AntHill();

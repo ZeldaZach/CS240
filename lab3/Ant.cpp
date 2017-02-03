@@ -21,15 +21,15 @@ void Ant::move()
 		case 0: // Go up 1
 			this->y++;
 		break;
-		
+
 		case 1: // Go down 1
 			this->y--;
 		break;
-		
+
 		case 2: // Go right 1
 			this->x++;
 		break;
-		
+
 		case 3: // Go left 1
 			this->x--;
 		break;
@@ -46,17 +46,17 @@ Ant* Ant::fight(Ant *other)
 	{
 		this_ant_power = (rand() % this->experience) + 1;
 		other_ant_power = (rand() % other->experience) + 1;
-		
+
 		if (this_ant_power != other_ant_power)
 			break;
 	}
-	
+
 	if (this_ant_power > other_ant_power)
-	{		
+	{
 		std::cerr << "Ant #" << this->getID() << " (defender) beats Ant #"
 			<< other->getID() << " (challenger) by the score "
 			<< this_ant_power << " to " << other_ant_power << std::endl;
-		
+
 		winner = this;
 		winner->experience += other->experience;
 	}
@@ -65,7 +65,7 @@ Ant* Ant::fight(Ant *other)
 		std::cerr << "Ant #" << other->getID() << " (challenger) beats Ant #"
 			<< this->getID() << " (defender) by the score "
 			<< other_ant_power << " to " << this_ant_power << std::endl;
-		
+
 		winner = other;
 		winner->experience += this->experience;
 	}

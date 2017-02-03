@@ -8,7 +8,7 @@ class Ant
 		int x;
 		int y;
 		int experience;
-	
+
 	public:
 		Ant(int);
 		Ant* fight(Ant *);
