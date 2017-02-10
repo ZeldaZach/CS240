@@ -1,0 +1,160 @@
+#include "LinkedList.h"
+#include <cstddef>
+#include <iostream>
+
+LinkedList::LinkedList()
+{
+	this->head = NULL;
+}
+
+LinkedList::LinkedList(Ant* a)
+{
+	head = new Node(a);
+}
+
+LinkedList::LinkedList(const LinkedList &old)
+{
+	this->head = new Node(new Ant(*(old.head->ant)));
+	Node *this_nodes = this->head;
+	Node *old_nodes = old.head->next;
+
+	while (old_nodes)
+	{
+		this_nodes->next = new Node(new Ant(*(old_nodes->ant)));
+		this_nodes = this_nodes->next;
+		old_nodes = old_nodes->next;
+	}
+}
+
+LinkedList::~LinkedList()
+{
+	Node *this_nodes = this->head;
+	Node *next = NULL;
+
+	while (this_nodes)
+	{
+		next = this_nodes->next;
+		delete this_nodes->ant;
+		delete this_nodes;
+		this_nodes = next;
+	}
+}
+
+void LinkedList::operator<<(Ant *other)
+{
+	this->addAnt(other);
+}
+
+/*
+ * Start by looping through the current LinkedList
+ * until we hit the end. Then create a new node element
+ * with the ant set and assign that to be the new last element
+ * of the LinkedList.
+ * @return true if the ant was added successfully
+ */
+bool LinkedList::addAnt(Ant* a)
+{
+	Node *tmp = this->head;
+	Node *n = new Node(a);
+
+	if (this->head == NULL)
+	{
+		this->head = n;
+		return true;
+	}
+	else
+	{
+		while (true)
+		{
+			if (tmp->next == NULL)
+				break;
+
+			tmp = tmp->next;
+		}
+		tmp->next = n;
+	}
+
+	return true;
+}
+
+/*
+ * Start by looping through the current LinkedList
+ * and trying to find an ant that has the id specified
+ * in the parameter.
+ * @return Ant* if we find it, NULL if we don't
+ */
+Ant* LinkedList::getAnt(int ant_id)
+{
+	Node *tmp = this->head;
+
+	while (true)
+	{
+		if (tmp == NULL)
+			return NULL;
+		else if (tmp->ant->getID() == ant_id)
+			return tmp->getAnt();
+		else
+			tmp = tmp->next;
+	}
+}
+
+bool LinkedList::updateAnt(int ant_id, Ant* new_ant)
+{
+	Node *tmp = this->head;
+
+	while (tmp)
+	{
+		if (tmp->getAnt()->getID() == ant_id)
+		{
+			delete tmp->ant;
+			tmp->ant = new_ant;
+			break;
+		}
+		else
+			tmp = tmp->next;
+	}
+}
+
+/*
+ * Go through the LL and remove the ant specified by ant_id
+ * Then link the prior and next nodes together to form a
+ * continued LL. If head was removed, set next to head.
+ * @return false if ant not found
+ */
+bool LinkedList::removeAnt(int ant_id)
+{
+	Node *tmp = this->head;
+	Node *prev = NULL;
+
+	while (tmp)
+	{
+		if (tmp->getAnt()->getID() == ant_id)
+		{
+			/*
+			 * [PREV] => [THIS] => [NEXT]
+			 * [PREV] => [NEXT]
+			 */
+			if (prev)
+				prev->next = tmp->next;
+			else
+				this->head = tmp->next;
+
+			delete tmp->getAnt();
+			delete tmp;
+
+			return true;
+		}
+		else
+		{
+			prev = tmp;
+			tmp = tmp->next;
+		}
+	}
+}
+
+Node::Node(Ant* a)
+{
+	this->ant = a;
+	this->next = NULL;
+}
+
