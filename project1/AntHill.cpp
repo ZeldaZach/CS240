@@ -81,7 +81,7 @@ void AntHill::turn()
 	this->food_count = 0;
 
 	// The Anthill may be attacked w/ ODDS_OF_ANTHILL_ATTACK % chance
-	bool attack_ant_hill = ((rand() % 100) < (ODDS_OF_ANTHILL_ATTACK * 100))
+	bool attack_ant_hill = ((rand() % 100) < (ODDS_OF_ANTHILL_ATTACK * 100));
 
 	if (attack_ant_hill)
 	{
@@ -116,7 +116,7 @@ void AntHill::turn()
 	}
 
 	// Every Ant has moved
-	beforeMessages.append(move(action_to_take == ANT_HILL_ATTACKED_NUM));
+	beforeMessages.append(move(attack_ant_hill));
 	
 	// Write output to log file
 	std::ofstream file;
