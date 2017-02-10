@@ -4,6 +4,7 @@
 #include "Ant.h"
 #include "LinkedList.h"
 #include <string>
+#include <cstdlib>
 
 class AntHill
 {
