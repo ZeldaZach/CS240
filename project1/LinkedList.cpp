@@ -68,9 +68,8 @@ void LinkedList::operator<<(Ant *other)
  * until we hit the end. Then create a new node element
  * with the ant set and assign that to be the new last element
  * of the LinkedList.
- * @return true if the ant was added successfully
  */
-bool LinkedList::addAnt(Ant* a)
+void LinkedList::addAnt(Ant* a)
 {
 	Node *tmp = this->head;
 	Node *n = new Node(a);
@@ -78,7 +77,6 @@ bool LinkedList::addAnt(Ant* a)
 	if (this->head == NULL)
 	{
 		this->head = n;
-		return true;
 	}
 	else
 	{
@@ -88,12 +86,7 @@ bool LinkedList::addAnt(Ant* a)
 
 		// Append to former end of LL
 		tmp->next = n;
-		
-		if (tmp->next)
-			return true;
 	}
-
-	return false;
 }
 
 /*
@@ -140,7 +133,7 @@ bool LinkedList::updateAnt(int ant_id, Ant* new_ant)
 			tmp = tmp->next;
 		}
 	}
-	
+
 	return false;
 }
 
@@ -179,7 +172,7 @@ bool LinkedList::removeAnt(int ant_id)
 			tmp = tmp->next;
 		}
 	}
-	
+
 	return false;
 }
 

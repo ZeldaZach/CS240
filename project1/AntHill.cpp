@@ -42,24 +42,19 @@ AntHill::~AntHill()
 
 int AntHill::addAnt()
 {
-	if (this->ants->addAnt(new Ant(this->next_id)))
-	{
-		this->next_id++; // IDs are unique
-		this->current_ants++; // Update the count of ants in the hill
+	this->ants->addAnt(new Ant(this->next_id++));
+	this->current_ants++; // Update the count of ants in the hill
 
-		return this->next_id - 1; // ID of the ant that was just added
-	}
-	
-	return -1; // There was an error
+	return this->next_id - 1; // ID of the ant that was just added
 }
 
 bool AntHill::removeAnt(int ant_id)
 {
 	bool status = this->ants->removeAnt(ant_id);
-	
+
 	if (status)
 		this->current_ants--;
-	
+
 	return status;
 }
 
@@ -71,7 +66,7 @@ Ant* AntHill::getAnt(int ant_id)
 void AntHill::turn()
 {
 	std::string afterMessages, beforeMessages; // Message buffers for the output
-	
+
 	//The Anthill produces all of the ants it can
 	for (int i = 0; i < this->food_count; i++)
 	{
@@ -117,13 +112,13 @@ void AntHill::turn()
 
 	// Every Ant has moved
 	beforeMessages.append(move(attack_ant_hill));
-	
+
 	// Write output to log file
 	std::ofstream file;
 	file.open("anthill.log", std::ios::out | std::ios::app);
 	file << printHillInfo(beforeMessages, afterMessages);
 	file.close();
-	
+
 	this->turn_count++;
 }
 
@@ -146,17 +141,17 @@ int AntHill::getDefenders()
 /*
  * Get the current state of the AntHill
  * This will tell us how much food, how many ants
- * how many attacks we've had, how many attacks 
+ * how many attacks we've had, how many attacks
  * we've lost, and (optional) the action taken
  * by the ants on their journey around the ant farm.
  */
 std::string AntHill::printHillInfo(std::string beforeMessages, std::string afterMessages)
 {
 	std::string retVal("");
-	
+
 	// Append turn number
 	retVal.append("----Turn " + patch::to_string(this->turn_count) + "-----\n");
-	
+
 	// If there's optional beforeMessages included, begin with them!
 	if (beforeMessages.length())
 		retVal.append(beforeMessages);
@@ -177,7 +172,7 @@ std::string AntHill::printHillInfo(std::string beforeMessages, std::string after
 
 	// Add a line break for good measure before returning
 	retVal.append("\n");
-		
+
 	return retVal;
 }
 
