@@ -80,12 +80,12 @@ int Ant::move()
 
 /*
  * Ant is ready to fight!
- * 50/50 chance the ant wins or dies
+ * 66/33 chance the ant wins or dies
  * return if it's alive or dead
  */
 int Ant::fight()
 {
-	int win = rand() % 2;
+	int win = rand() % 3;
 
 	if (win)
 		return 1;

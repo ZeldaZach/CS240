@@ -23,14 +23,15 @@ namespace patch
 AntHill::AntHill()
 {
 	this->current_ants = 0;
-	this->next_id = 0;
+	this->next_id = 1;
 	this->food_count = 0;
 	this->ants = new LinkedList();
 	this->attack_count = 0;
 	this->defended_attacks = 0;
 	this->defeated_attacks = 0;
+	this->turn_count = 1;
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < STARTING_ANT_COUNT; i++)
 		this->addAnt();
 }
 
@@ -58,9 +59,15 @@ bool AntHill::removeAnt(int ant_id)
 		this->current_ants--;
 }
 
+Ant* AntHill::getAnt(int ant_id)
+{
+	return this->ants->getAnt(ant_id);
+}
+
 void AntHill::turn()
 {
-	std::string additionalMessages;
+	std::string afterMessages, beforeMessages;
+	
 	
 	//The Anthill produces all of the ants it can
 	for (int i = 0; i < this->food_count; i++)
@@ -70,7 +77,7 @@ void AntHill::turn()
 	//The Anthill may be attacked
 	int action_to_take = rand() % 5;
 
-	if (action_to_take == 3) // Ant Hill Attacked
+	if (action_to_take == ANT_HILL_ATTACKED_NUM) // Ant Hill Attacked
 	{
 		int attacking_ants = rand() % this->current_ants + 1;
 		// Any Ants less than half the size of the grid in any direction help ‘defend’.
@@ -82,9 +89,9 @@ void AntHill::turn()
 			// Delete all defending_ants
 			for (int i = 0; i < this->next_id; i++)
 			{
-				if (this->ants->getAnt(i) && this->ants->getAnt(i)->inRange())
+				if (this->getAnt(i) && this->getAnt(i)->inRange())
 				{
-					additionalMessages.append("Ant #" + patch::to_string(i) + " has fought and died in the ant hill invasion\n");
+					beforeMessages.append("Ant #" + patch::to_string(i) + " has fought and died in the ant hill invasion\n");
 					this->removeAnt(i);
 				}
 			}
@@ -98,13 +105,15 @@ void AntHill::turn()
 	}
 
 	// Every Ant has moved
-	additionalMessages.append(move());
+	beforeMessages.append(move(action_to_take == ANT_HILL_ATTACKED_NUM));
 	
 	// Write output to log file
 	std::ofstream file;
 	file.open("anthill.log", std::ios::out | std::ios::app);
-	file << printHillInfo(additionalMessages);
+	file << printHillInfo(beforeMessages, afterMessages);
 	file.close();
+	
+	this->turn_count++;
 }
 
 /*
@@ -117,7 +126,7 @@ int AntHill::getDefenders()
 	int retVal = 0;
 
 	for (int i = 0; i < this->next_id; i++)
-		if (this->ants->getAnt(i) && this->ants->getAnt(i)->inRange())
+		if (this->getAnt(i) && this->getAnt(i)->inRange())
 			retVal++;
 
 	return retVal;
@@ -130,9 +139,16 @@ int AntHill::getDefenders()
  * we've lost, and (optional) the action taken
  * by the ants on their journey around the ant farm.
  */
-std::string AntHill::printHillInfo(std::string additionalMessages)
+std::string AntHill::printHillInfo(std::string beforeMessages, std::string afterMessages)
 {
 	std::string retVal("");
+	
+	// Append turn number
+	retVal.append("----Turn #" + patch::to_string(this->turn_count) + "-----\n");
+	
+	// If there's optional beforeMessages included, begin with them!
+	if (beforeMessages.length())
+		retVal.append(beforeMessages);
 
 	// Populare the retVal with relevant data
 	retVal.append(
@@ -144,9 +160,9 @@ std::string AntHill::printHillInfo(std::string additionalMessages)
 		+ "Failed to defend: " + patch::to_string(this->defeated_attacks) + "\n"
 	);
 
-	// If there's optional additionalMessages included, append them too!
-	if (additionalMessages.length())
-		retVal.append(additionalMessages);
+	// If there's optional afterMessages included, append them too!
+	if (afterMessages.length())
+		retVal.append(afterMessages);
 
 	// Add a line break for good measure before returning
 	retVal.append("\n");
@@ -158,15 +174,19 @@ std::string AntHill::printHillInfo(std::string additionalMessages)
  * Return a string of all the ant actions that occured
  * seperated by line breaks
  */
-std::string AntHill::move()
+std::string AntHill::move(bool wasAttacked)
 {
 	std::string retStr("");
 
 	for (int i = 0; i < this->next_id; i++)
 	{
-		if (this->ants->getAnt(i))
+		if (this->getAnt(i))
 		{
-			int retVal = this->ants->getAnt(i)->move();
+			int retVal = this->getAnt(i)->move();
+
+			// If the ant helped in the attack, it is not out fighting/foraging
+			if (wasAttacked && this->getAnt(i)->inRange())
+				break;
 
 			switch (retVal)
 			{
@@ -185,6 +205,7 @@ std::string AntHill::move()
 				break;
 
 				case 3: // Ant found food
+					retStr.append("Ant #" + patch::to_string(i) + " has foraged and found a food\n");
 					this->food_count++;
 				break;
 			}

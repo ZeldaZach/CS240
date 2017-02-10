@@ -15,6 +15,7 @@ class AntHill
 		int attack_count;
 		int defended_attacks;
 		int defeated_attacks;
+		int turn_count;
 
 	public:
 		AntHill();
@@ -24,9 +25,11 @@ class AntHill
 		int getDefenders();
 		bool removeAnt(int ant_id);
 		void turn();
-		std::string move();
-		std::string printHillInfo(std::string additionalMessages = "");
+		std::string move(bool wasAttacked);
+		std::string printHillInfo(std::string beforeMessages = NULL, std::string afterMessages = NULL);
 		Ant *getAnt(int ant_id);
+		const static int STARTING_ANT_COUNT = 30;
+		const static int ANT_HILL_ATTACKED_NUM = 3;
 		
 		
 };

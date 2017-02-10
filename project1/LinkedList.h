@@ -6,12 +6,13 @@
 
 class Node
 {
+	friend class LinkedList; // Allow LinkedList to access private vars
+	
 	private:
 		Ant *ant;
 		Node *next;
 
-	public:
-		friend class LinkedList;
+	public:	
 		Node(Ant* a);
 		Ant* getAnt() { return this->ant; }
 };

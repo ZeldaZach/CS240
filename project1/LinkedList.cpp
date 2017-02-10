@@ -2,16 +2,25 @@
 #include <cstddef>
 #include <iostream>
 
+/*
+ * Default Constructor
+ */
 LinkedList::LinkedList()
 {
 	this->head = NULL;
 }
 
+/*
+ * Non-Default Constructor
+ */
 LinkedList::LinkedList(Ant* a)
 {
 	head = new Node(a);
 }
 
+/*
+ * Copy Constructor
+ */
 LinkedList::LinkedList(const LinkedList &old)
 {
 	this->head = new Node(new Ant(*(old.head->ant)));
@@ -26,6 +35,11 @@ LinkedList::LinkedList(const LinkedList &old)
 	}
 }
 
+/*
+ * Deleter
+ * We're gonna have to delete the Ant* inside
+ * the Node* before we can delete the node
+ */
 LinkedList::~LinkedList()
 {
 	Node *this_nodes = this->head;
@@ -40,6 +54,10 @@ LinkedList::~LinkedList()
 	}
 }
 
+/*
+ * Overload << operator to be another form of
+ * append to list
+ */
 void LinkedList::operator<<(Ant *other)
 {
 	this->addAnt(other);
@@ -64,17 +82,18 @@ bool LinkedList::addAnt(Ant* a)
 	}
 	else
 	{
-		while (true)
-		{
-			if (tmp->next == NULL)
-				break;
-
+		// Get to the end of the LL
+		while (tmp->next)
 			tmp = tmp->next;
-		}
+
+		// Append to former end of LL
 		tmp->next = n;
+		
+		if (tmp->next)
+			return true;
 	}
 
-	return true;
+	return false;
 }
 
 /*
@@ -98,6 +117,12 @@ Ant* LinkedList::getAnt(int ant_id)
 	}
 }
 
+/*
+ * Update the Node w/ the Ant's ID being ant_id
+ * We update by removing the ant and putting a new
+ * ant in its place (it probably has a new ID...)
+ * @return true if the ant was replaced
+ */
 bool LinkedList::updateAnt(int ant_id, Ant* new_ant)
 {
 	Node *tmp = this->head;
@@ -108,11 +133,15 @@ bool LinkedList::updateAnt(int ant_id, Ant* new_ant)
 		{
 			delete tmp->ant;
 			tmp->ant = new_ant;
-			break;
+			return true;
 		}
 		else
+		{
 			tmp = tmp->next;
+		}
 	}
+	
+	return false;
 }
 
 /*
@@ -150,11 +179,15 @@ bool LinkedList::removeAnt(int ant_id)
 			tmp = tmp->next;
 		}
 	}
+	
+	return false;
 }
 
+/*
+ * Non-Default Constructor for Node
+ */
 Node::Node(Ant* a)
 {
 	this->ant = a;
 	this->next = NULL;
 }
-
