@@ -80,10 +80,10 @@ void AntHill::turn()
 	}
 	this->food_count = 0;
 
-	//The Anthill may be attacked
-	int action_to_take = rand() % 5;
+	// The Anthill may be attacked w/ ODDS_OF_ANTHILL_ATTACK % chance
+	bool attack_ant_hill = ((rand() % 100) < (ODDS_OF_ANTHILL_ATTACK * 100))
 
-	if (action_to_take == ANT_HILL_ATTACKED_NUM) // Ant Hill Attacked (20% chance)
+	if (attack_ant_hill)
 	{
 		int attacking_ants = rand() % (this->current_ants + 1) + 1; // Range: [1, this->current_ants]
 

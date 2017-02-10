@@ -81,6 +81,7 @@ int Ant::move()
  */
 int Ant::fight()
 {
+	// Our hero ant will win ODDS_OF_WINNING_FIGHT % of the time
 	bool winner = ((rand() % 100) < (ODDS_OF_WINNING_FIGHT * 100));
 
 	if (winner)
