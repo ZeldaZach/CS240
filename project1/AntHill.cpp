@@ -55,8 +55,12 @@ int AntHill::addAnt()
 
 bool AntHill::removeAnt(int ant_id)
 {
-	if (this->ants->removeAnt(ant_id))
+	bool status = this->ants->removeAnt(ant_id);
+	
+	if (status)
 		this->current_ants--;
+	
+	return status;
 }
 
 Ant* AntHill::getAnt(int ant_id)
@@ -198,19 +202,19 @@ std::string AntHill::move(bool wasAttacked)
 			switch (retVal)
 			{
 				default:
-				case 0: // Ant moved
+				case Ant::JUST_MOVED:
 				break;
 
-				case 1: // Ant in fight, won
+				case Ant::FIGHT_WIN:
 					retStr.append("Ant #" + patch::to_string(i) + " has run into a rival ant and killed them\n");
 				break;
 
-				case 2: // Ant in fight, lost
+				case Ant::FIGHT_LOSE:
 					retStr.append("Ant #" + patch::to_string(i) + " has run into a rival ant, fought, and died\n");
 					this->removeAnt(i);
 				break;
 
-				case 3: // Ant found food
+				case Ant::FOUND_FOOD:
 					retStr.append("Ant #" + patch::to_string(i) + " has foraged and found a food\n");
 					this->food_count++;
 				break;

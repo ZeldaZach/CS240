@@ -19,19 +19,13 @@ Ant::Ant(const Ant &old)
 /* Move the ants in a random way (up, down, left, or right)
  * Also, see if the ant fights
  * Also, see if the ant finds food
- * @return
- * 0 -- Ant moved, nothing happened
- * 1 -- Ant in fight, won
- * 2 -- Ant in fight, lost
- * 3 -- Ant found food
+ * @return enum of action taken
  */
 int Ant::move()
 {
-	// Random number 0 - 3 inclusive
-	int randomNum = rand() % 4;
-	int random_action = rand() % 5;
+	int move_direction = rand() % 4;
 
-	switch (randomNum)
+	switch (move_direction)
 	{
 		case 0: // Go up 1, unless attempt to go out of bounds
 		{
@@ -62,6 +56,8 @@ int Ant::move()
 		break;
 	}
 
+	// 20% fight, 20% find food, 60% just move
+	int random_action = rand() % 5;
 	switch (random_action)
 	{
 		case 3: // Fight time!
@@ -69,11 +65,11 @@ int Ant::move()
 		break;
 
 		case 4: // Food found!
-			return 3;
+			return FOUND_FOOD;
 		break;
 
 		default: // Nothing happened, ant just moved
-			return 0;
+			return JUST_MOVED;
 		break;
 	}
 }
@@ -85,12 +81,12 @@ int Ant::move()
  */
 int Ant::fight()
 {
-	int win = rand() % 3;
+	bool winner = ((rand() % 100) < (ODDS_OF_WINNING_FIGHT * 100));
 
-	if (win)
-		return 1;
+	if (winner)
+		return FIGHT_WIN;
 	else
-		return 2;
+		return FIGHT_LOSE;
 }
 
 /*
