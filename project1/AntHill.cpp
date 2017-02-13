@@ -58,11 +58,6 @@ bool AntHill::removeAnt(int ant_id)
 	return status;
 }
 
-Ant* AntHill::getAnt(int ant_id)
-{
-	return this->ants->getAnt(ant_id);
-}
-
 void AntHill::turn()
 {
 	std::string afterMessages, beforeMessages; // Message buffers for the output
@@ -85,6 +80,8 @@ void AntHill::turn()
 		// Any Ants less than half the size of the grid in any direction help ‘defend’.
 		int defending_ants = this->getDefenders();
 		this->attack_count++;
+		
+		beforeMessages.append("The ant hill is under attack!\n");
 
 		if (defending_ants < attacking_ants)
 		{
@@ -112,6 +109,10 @@ void AntHill::turn()
 
 	// Every Ant has moved
 	beforeMessages.append(move(attack_ant_hill));
+	
+	// Message for when the ants move but no fighting/food
+	if (beforeMessages.length() == 0)
+		beforeMessages.append("All ants have moved and have done nothing else\n");
 
 	// Write output to log file
 	std::ofstream file;
@@ -158,9 +159,9 @@ std::string AntHill::printHillInfo(std::string beforeMessages, std::string after
 
 	// Populare the retVal with relevant data
 	retVal.append(
-		std::string("The hill currently has:") + "\n"
-		+ "Food: " + patch::to_string(this->food_count) + "\n"
-		+ "Ants: " + patch::to_string(this->current_ants) + "\n"
+		std::string("End of turn numbers:\n")
+		+ "Food Collected: " + patch::to_string(this->food_count) + "\n"
+		+ "Ants in the Hill: " + patch::to_string(this->current_ants) + "\n"
 		+ "The hill has been attacked " + patch::to_string(this->attack_count) + " times." + "\n"
 		+ "Successfully defended: " + patch::to_string(this->defended_attacks) + "\n"
 		+ "Failed to defend: " + patch::to_string(this->defeated_attacks) + "\n"
