@@ -28,8 +28,8 @@ class AntHill
 		void turn();
 		std::string move(bool wasAttacked);
 		std::string printHillInfo(std::string beforeMessages = NULL, std::string afterMessages = NULL);
-		Ant *getAnt(int ant_id) { return this->ants->getAnt(ant_id); }
-		const static int STARTING_ANT_COUNT = 10; // How many ants to start in your new Ant Hill
+		Ant *getAnt(int ant_id) { return ants->getAnt(ant_id); }
+		const static int STARTING_ANT_COUNT = 6; // How many ants to start in your new Ant Hill
 		const static float ODDS_OF_ANTHILL_ATTACK = 0.20; // Odds of attack on the hill (1.00 = 100%)
 };
 

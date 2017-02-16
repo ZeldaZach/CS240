@@ -9,14 +9,17 @@ class Ant
 		int y;
 
 	public:
-		Ant(int);
-		Ant(const Ant&);
+		Ant(int id);
+		Ant(const Ant &old);
+		Ant(Ant *old);
+
 		int fight();
 		int move();
 		int getID() { return id; }
 		int getX() { return x; }
 		int getY() { return y; }
 		bool inRange();
+		bool operator==(Ant *other);
 		const static int Y_MAX = 5; // Grid maximum Y and -Y
 		const static int X_MAX = 5; // Grid maximum X and -X
 		const static float ODDS_OF_WINNING_FIGHT = 0.55; // Odds of winning a fight (1.00 = 100%)

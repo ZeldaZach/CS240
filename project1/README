@@ -1,0 +1,45 @@
+CS240 Data Structures
+Spring 2017
+Project1 README FILE
+
+Due Date:
+Submission Date: Feb 16, 2017
+Author: Zachary Halpern
+
+PERCENT COMPLETE: 100%
+
+PARTS THAT ARE NOT COMPLETE: None
+
+BUGS:
+None known of
+
+FILES:
+.
+├── Ant.cpp
+├── Ant.h
+├── AntHill.cpp
+├── AntHill.h
+├── LinkedList.cpp
+├── LinkedList.h
+├── Makefile
+├── project1.cpp
+└── README
+
+TO RUN:
+$ unzip project1.zip -d project1
+$ cd project1
+$ make
+$ make checkmem
+$ make run
+$ cat anthill.log
+
+EXTRA CREDIT:
+Possible: Used ENUMs, constant variables to help determine percentages, output formatting
+
+BIBLIOGRAPHY:
+https://stackoverflow.com/questions/12975341/to-string-is-not-a-member-of-std-says-g
+http://www.cplusplus.com/doc/tutorial/files/
+https://www.tutorialspoint.com/cplusplus/cpp_copy_constructor.htm
+
+MISCELLANEOUS:
+None

@@ -19,6 +19,9 @@ class Node
 
 class LinkedList
 {
+	private:
+		Node *head;
+
 	public:
 		LinkedList();
 		~LinkedList();
@@ -29,10 +32,7 @@ class LinkedList
 		bool updateAnt(int ant_id, Ant* new_ant);
 		bool removeAnt(int ant_id);
 		void addAnt(Ant* a);
-		void operator<<(Ant* other);
-
-	private:
-		Node *head;
+		void operator<<(Ant* new_ant);
 };
 
 #endif

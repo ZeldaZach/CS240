@@ -80,7 +80,7 @@ void AntHill::turn()
 		// Any Ants less than half the size of the grid in any direction help ‘defend’.
 		int defending_ants = this->getDefenders();
 		this->attack_count++;
-		
+
 		beforeMessages.append("The ant hill is under attack!\n");
 
 		if (defending_ants < attacking_ants)
@@ -109,7 +109,7 @@ void AntHill::turn()
 
 	// Every Ant has moved
 	beforeMessages.append(move(attack_ant_hill));
-	
+
 	// Message for when the ants move but no fighting/food
 	if (beforeMessages.length() == 0)
 		beforeMessages.append("All ants have moved and have done nothing else\n");

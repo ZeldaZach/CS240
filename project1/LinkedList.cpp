@@ -15,7 +15,7 @@ LinkedList::LinkedList()
  */
 LinkedList::LinkedList(Ant* a)
 {
-	head = new Node(a);
+	this->head = new Node(a);
 }
 
 /*
@@ -23,14 +23,10 @@ LinkedList::LinkedList(Ant* a)
  */
 LinkedList::LinkedList(const LinkedList &old)
 {
-	this->head = new Node(new Ant(*(old.head->ant)));
-	Node *this_nodes = this->head;
-	Node *old_nodes = old.head->next;
-
+	Node *old_nodes = old.head;
 	while (old_nodes)
 	{
-		this_nodes->next = new Node(new Ant(*(old_nodes->ant)));
-		this_nodes = this_nodes->next;
+		addAnt(new Ant(old_nodes->ant));
 		old_nodes = old_nodes->next;
 	}
 }
@@ -58,9 +54,9 @@ LinkedList::~LinkedList()
  * Overload << operator to be another form of
  * append to list
  */
-void LinkedList::operator<<(Ant *other)
+void LinkedList::operator<<(Ant *new_ant)
 {
-	this->addAnt(other);
+	this->addAnt(new_ant);
 }
 
 /*

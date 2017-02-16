@@ -9,10 +9,9 @@ $(PROJ_NAME): $(DEPENDENCIES_CPP) $(DEPENDENCIES_H)
 	g++ $(DEPENDENCIES_CPP) $(FLAGS) -o $(PROJ_NAME)
 
 run: $(PROJ_NAME)
-	rm -f anthill.log
 	./$(PROJ_NAME)
 
-mem: $(PROJ_NAME)
+checkmem: $(PROJ_NAME)
 	valgrind ./$(PROJ_NAME) --leak-check=full -v
 
 clean:

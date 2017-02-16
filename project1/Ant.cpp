@@ -16,6 +16,13 @@ Ant::Ant(const Ant &old)
 	this->y = old.y;
 }
 
+Ant::Ant(Ant *old)
+{
+	this->id = old->id;
+	this->x = old->x;
+	this->y = old->y;
+}
+
 /* Move the ants in a random way (up, down, left, or right)
  * Also, see if the ant fights
  * Also, see if the ant finds food
@@ -97,10 +104,21 @@ int Ant::fight()
  */
 bool Ant::inRange()
 {
-
 	if (-Y_MAX/2 < y && y < Y_MAX/2)
 		if (-X_MAX/2 < x && x < X_MAX/2)
 			return true;
+
+	return false;
+}
+
+/*
+ * Compare 2 ants and see if they are the same
+ * 2 ants are the "same" if they have the same ID
+ */
+bool Ant::operator==(Ant *other)
+{
+	if (this->id == other->id)
+		return true;
 
 	return false;
 }
