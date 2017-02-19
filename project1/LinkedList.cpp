@@ -32,9 +32,10 @@ LinkedList::LinkedList(const LinkedList &old)
 }
 
 /*
- * Deleter
- * We're gonna have to delete the Ant* inside
- * the Node* before we can delete the node
+ * Destructor that deletes the nodes
+ * the nodes should _already_ be empty
+ * of memory so no need to check them for
+ * what's inside of them.
  */
 LinkedList::~LinkedList()
 {
@@ -44,7 +45,6 @@ LinkedList::~LinkedList()
 	while (this_nodes)
 	{
 		next = this_nodes->next;
-		delete this_nodes->ant;
 		delete this_nodes;
 		this_nodes = next;
 	}

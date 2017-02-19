@@ -35,8 +35,15 @@ AntHill::AntHill()
 		this->addAnt();
 }
 
+/*
+ * Destructor has responsibility to delete the ants
+ * in the pointer list before deleting the LinkedList itself
+ */
 AntHill::~AntHill()
 {
+	for (int i = 0; i < this->next_id; i++)
+		delete this->ants->getAnt(i);
+
 	delete this->ants;
 }
 
