@@ -21,4 +21,4 @@ checkmem: ${PROJ_NAME}
 	valgrind ./${PROJ_NAME} --leak-check=full -v
 
 clean:
-	rm ${PROJ_NAME} ${DEPENDENCIES_O}
+	rm -f ${PROJ_NAME} ${DEPENDENCIES_O}
