@@ -11,5 +11,8 @@ ${PROJ_NAME}: ${DEPENDENCIES_CPP} ${DEPENDENCIES_H}
 run: ${PROJ_NAME}
 	./${PROJ_NAME}
 
+checkmem: ${PROJ_NAME}
+	valgrind ./${PROJ_NAME} --leak-check=full -v
+
 clean:
 	rm ${PROJ_NAME}

@@ -1,6 +1,5 @@
 #include "Card.h"
 
-
 Card::Card(int suit, int value)
 {
 	this->suit = 0;
@@ -8,8 +7,8 @@ Card::Card(int suit, int value)
 
 	if (1 < value && value < 15)
 		this->suit = suit;
-	
-	if (0 < suit && suit < 4)
+
+	if (0 < suit && suit < 5)
 		this->value = value;
 }
 

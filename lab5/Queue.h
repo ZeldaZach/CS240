@@ -45,7 +45,7 @@ Queue<T>::Queue(const Queue &old)
 
 template <class T>
 Queue<T>::~Queue()
-{	
+{
 	delete list;
 }
 
@@ -59,7 +59,6 @@ template <class T>
 T Queue<T>::dequeue()
 {
 	T retVal = list->read();
-	
 	list->remove(retVal);
 	return retVal;
 }
@@ -73,7 +72,7 @@ T Queue<T>::peek()
 template <class T>
 bool Queue<T>::empty()
 {
-	return (this->list->head == NULL);
+	return (this->size() == 0);
 }
 
 template <class T>
@@ -86,24 +85,7 @@ void Queue<T>::clear()
 template <class T>
 int Queue<T>::size()
 {
-	int count = 0;
-	LinkedList<T> *newll = new LinkedList<T>();
-	
-	while (true)
-	{
-		if (this->peek())
-		{
-			newll->insert(this->dequeue());
-			count++;
-		}
-		else
-			break;
-	}
-	
-	this->list = newll;
-	return count;
+	return this->list->size();
 }
-
-
 
 #endif

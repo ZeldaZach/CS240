@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <iostream>
+#include <type_traits>
 
 template <class T>
 class Node
@@ -12,10 +13,13 @@ class Node
 
 	private:
 		T data;
+		void deleteIfPtr(T* ptr) { delete ptr; }
+		void deleteIfPtr(const T&) { /* else, do nothing */ }
 
 	public:
 		Node<T> *next;
 		Node(T initial);
+		~Node();
 };
 
 template <class T>
@@ -37,6 +41,7 @@ class LinkedList
 		T& read();
 		bool empty();
 		bool remove(T &data);
+		int size();
 		Node<T> *getHead() { return head; }
 
 		void operator<<(T new_data);
@@ -113,6 +118,7 @@ T& LinkedList<T>::read()
 		{
 			// TODO: Figure out how to make this work
 			// Illegal access
+			std::exit(1);
 		}
 		else
 		{
@@ -129,7 +135,7 @@ T& LinkedList<T>::read()
 template <class T>
 bool LinkedList<T>::empty()
 {
-	return (this->head == NULL);
+	return (this->size() == 0);
 }
 
 template <class T>
@@ -142,12 +148,7 @@ bool LinkedList<T>::remove(T &data)
 	{
 		if (tmp->data == data)
 		{
-			if (tmp == this->head)
-			{
-				std::cerr << "Head is null" << std::endl;
-				this->head = NULL;
-			}
-			else if (prev)
+			if (prev)
 			{
 				prev->next = tmp->next;
 			}
@@ -155,7 +156,7 @@ bool LinkedList<T>::remove(T &data)
 			{
 				this->head = tmp->next;
 			}
-			
+
 			if (this->iterator == tmp)
 			{
 				this->iterator = tmp->next;
@@ -175,10 +176,31 @@ bool LinkedList<T>::remove(T &data)
 }
 
 template <class T>
+int LinkedList<T>::size()
+{
+	int count = 0;
+	Node<T> *tmp = this->head;
+
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
+	
+	return count;
+}
+
+template <class T>
 Node<T>::Node(T initial)
 {
 	this->data = initial;
 	this->next = NULL;
+}
+
+template <class T>
+Node<T>::~Node()
+{
+    deleteIfPtr(this->data);
 }
 
 

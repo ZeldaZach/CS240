@@ -20,11 +20,12 @@ using namespace std;
 int main(){
 	srand(time(NULL));
 	cerr << "\n\tTEST #1: Test create a integer List" << endl;
+
 	LinkedList<int> list;
 	list.insert(5);
 	assert(list.read() == 5);
 	cerr << "\n\t========================PASS========================\n" << endl;
-
+	
 	cerr << "\n\tTEST #2: Test create a Card List" << endl;
 	LinkedList<Card*> cards_list;
 	cards_list.insert(new Card(1, 14));
@@ -38,7 +39,6 @@ int main(){
 	assert(*draw_card3 == Card(3, 14));
 
 	cerr << "\n\t========================PASS========================\n" << endl;
-
 	cerr << "\n\tTEST #3: Test delete elements from Linked List" << endl;
 	cards_list.remove(draw_card1);
 	delete draw_card1;
@@ -57,7 +57,6 @@ int main(){
 	assert(5 == queue.dequeue());
 
 	cerr << "\n\t========================PASS========================\n" << endl;
-
 	cerr << "\n\tTEST #5: Test create a Card Queue" << endl;
 
 	Queue<Card*> cards_queue;
@@ -126,15 +125,18 @@ int main(){
 		if(card2 == card3 || card3 == card4){
 			unshuffled--;
 		}
-		// cerr << "C2[" << card2.getSuit() << "," << card2.getValue() << "]\t";
-		// cerr << "C3[" << card3.getSuit() << "," << card3.getValue() << "]\t";
-		// cerr << "C4[" << card4.getSuit() << "," << card4.getValue() << "]" << endl;
+		/*
+		cerr << "C2[" << card2.getSuit() << "," << card2.getValue() << "]\t";
+		cerr << "C3[" << card3.getSuit() << "," << card3.getValue() << "]\t";
+		cerr << "C4[" << card4.getSuit() << "," << card4.getValue() << "]" << endl;
+		*/
 
 		assert(unshuffled > 0);
 	}
 	cerr << "\n\t========================PASS========================\n" << endl;
-#endif
 
 	cerr << "\n\tAll Tests Passed.\nDon't forget to run with Valgrind and submit to Blackboard!\n" << endl;
+	
+#endif
 	return 0;
 }

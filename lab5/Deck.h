@@ -8,9 +8,12 @@ class Deck
 {
 	private:
 		Queue<Card*> *deck;
-		
+		void swap(Card&, Card&);
+		void randomize(Card**, int);
+
 	public:
 		Deck();
+		~Deck();
 		Card draw();
 		bool empty();
 		void shuffle();
