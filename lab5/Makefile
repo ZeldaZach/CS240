@@ -10,7 +10,7 @@ ${PROJ_NAME}: ${DEPENDENCIES_O} ${DRIVER}
 
 Card.o: Card.cpp Card.h
 	g++ Card.cpp -o Card.o -c ${FLAGS}
-	
+
 Deck.o: Deck.cpp Deck.h LinkedList.h Queue.h
 	g++ Deck.cpp -o Deck.o -c ${FLAGS}
 

@@ -12,11 +12,11 @@ class Queue
 
 	public:
 		Queue();
-		Queue(T initial);
-		Queue(const Queue &old);
+		Queue(T);
+		Queue(const Queue &);
 		~Queue();
 
-		bool enqueue(T data);
+		bool enqueue(T);
 		T dequeue();
 		T peek();
 		bool empty();

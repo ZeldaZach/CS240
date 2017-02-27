@@ -13,13 +13,10 @@ class Node
 
 	private:
 		T data;
-		void deleteIfPtr(T* ptr) { delete ptr; }
-		void deleteIfPtr(const T&) { /* else, do nothing */ }
 
 	public:
 		Node<T> *next;
-		Node(T initial);
-		~Node();
+		Node(T);
 };
 
 template <class T>
@@ -33,14 +30,14 @@ class LinkedList
 
 	public:
 		LinkedList();
-		LinkedList(T initial);
-		LinkedList(const LinkedList<T> &old);
+		LinkedList(T);
+		LinkedList(const LinkedList<T> &);
 		~LinkedList();
 
-		void insert(T data);
+		void insert(T);
 		T& read();
 		bool empty();
-		bool remove(T &data);
+		bool remove(T &);
 		int size();
 		Node<T> *getHead() { return head; }
 
@@ -196,12 +193,5 @@ Node<T>::Node(T initial)
 	this->data = initial;
 	this->next = NULL;
 }
-
-template <class T>
-Node<T>::~Node()
-{
-    deleteIfPtr(this->data);
-}
-
 
 #endif

@@ -9,13 +9,10 @@
  */
 Deck::Deck()
 {
-	// Prevent the shuffle from conflicting later in time
-	srand(time(NULL));
-
 	deck = new Queue<Card*>();
 
-	for (int suit = 1; suit <= 4; suit++) // Diamond -> Space
-		for (int value = 2; value <= 14; value++) // 2 -> Ace
+	for (int suit = 1; suit < 5; suit++) // Diamond -> Space
+		for (int value = 2; value < 15; value++) // 2 -> Ace
 			deck->enqueue(new Card(suit, value));
 }
 

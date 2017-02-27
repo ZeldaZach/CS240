@@ -8,12 +8,11 @@ class Card
 		int value;
 
 	public:
-		Card(int suit, int value);
-		Card(const Card &old);
+		Card(int, int);
+		Card(const Card &);
 		int getValue() { return value; }
 		int getSuit() { return suit; }
-		bool operator==(const Card &other);
+		bool operator==(const Card &);
 };
-
 
 #endif
