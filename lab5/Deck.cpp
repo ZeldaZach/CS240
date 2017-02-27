@@ -11,7 +11,7 @@ Deck::Deck()
 {
 	// Prevent the shuffle from conflicting later in time
 	srand(time(NULL));
-	
+
 	deck = new Queue<Card*>();
 
 	for (int suit = 1; suit <= 4; suit++) // Diamond -> Space
@@ -21,12 +21,19 @@ Deck::Deck()
 
 Deck::~Deck()
 {
+	while (! deck->empty() )
+		delete deck->dequeue();
+
 	delete deck;
 }
 
 Card Deck::draw()
 {
-	return *(deck->dequeue());
+	Card *dequeue = deck->dequeue();
+	Card tmp(*dequeue);
+
+	delete dequeue;
+	return tmp;
 }
 
 bool Deck::empty()
@@ -42,7 +49,7 @@ void Deck::swap(Card &c1, Card &c2)
 }
 
 void Deck::randomize(Card* arr[], int n)
-{	
+{
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = n-1; j > 0; j--)
@@ -67,5 +74,6 @@ void Deck::shuffle()
 	for (int i = 0; i < size; i++)
 		tmp_deck->enqueue(tmp[i]);
 
+	delete deck;
 	deck = tmp_deck;
 }

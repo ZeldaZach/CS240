@@ -25,7 +25,7 @@ int main(){
 	list.insert(5);
 	assert(list.read() == 5);
 	cerr << "\n\t========================PASS========================\n" << endl;
-	
+
 	cerr << "\n\tTEST #2: Test create a Card List" << endl;
 	LinkedList<Card*> cards_list;
 	cards_list.insert(new Card(1, 14));
@@ -48,6 +48,7 @@ int main(){
 	delete draw_card3;
 	assert(cards_list.empty() == true);
 
+
 	cerr << "\n\t========================PASS========================\n" << endl;
 
 	cerr << "\n\tTEST #4: Test add 1 element to a Queue" << endl;
@@ -55,6 +56,7 @@ int main(){
 	Queue<int> queue;
 	queue.enqueue(5);
 	assert(5 == queue.dequeue());
+
 
 	cerr << "\n\t========================PASS========================\n" << endl;
 	cerr << "\n\tTEST #5: Test create a Card Queue" << endl;
@@ -103,6 +105,7 @@ int main(){
 	Deck deck;
 	int last_suit = -1, last_val = -1;
 	int num_cards = 1;
+
 	for(Card draw_card = deck.draw();!deck.empty(); draw_card = deck.draw()){
 		assert(draw_card.getSuit() != last_suit || draw_card.getValue() != last_val);
 		last_suit = draw_card.getSuit();
@@ -119,6 +122,7 @@ int main(){
 	deck3.shuffle();
 	deck4.shuffle();
 	int unshuffled = 20;
+
 	for(Card card2 = deck2.draw(), card3 = deck3.draw(), card4 = deck4.draw();
 		!deck2.empty() && !deck3.empty() && !deck4.empty();
 			card2 = deck2.draw(), card3 = deck3.draw(), card4 = deck4.draw()){
@@ -136,7 +140,7 @@ int main(){
 	cerr << "\n\t========================PASS========================\n" << endl;
 
 	cerr << "\n\tAll Tests Passed.\nDon't forget to run with Valgrind and submit to Blackboard!\n" << endl;
-	
 #endif
+
 	return 0;
 }

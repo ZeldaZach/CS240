@@ -186,7 +186,7 @@ int LinkedList<T>::size()
 		count++;
 		tmp = tmp->next;
 	}
-	
+
 	return count;
 }
 

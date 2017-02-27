@@ -12,6 +12,12 @@ Card::Card(int suit, int value)
 		this->value = value;
 }
 
+Card::Card(const Card &old)
+{
+	this->suit = old.suit;
+	this->value = old.value;
+}
+
 
 bool Card::operator==(const Card &other)
 {
