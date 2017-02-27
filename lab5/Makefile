@@ -8,9 +8,9 @@ all: ${PROJ_NAME}
 ${PROJ_NAME}: ${DEPENDENCIES_O} ${DRIVER}
 	g++ ${DEPENDENCIES_O} ${DRIVER} ${FLAGS} -o ${PROJ_NAME}
 
-Card.o: Card.cpp Card.h LinkedList.h Queue.h
+Card.o: Card.cpp Card.h
 	g++ Card.cpp -o Card.o -c ${FLAGS}
-
+	
 Deck.o: Deck.cpp Deck.h LinkedList.h Queue.h
 	g++ Deck.cpp -o Deck.o -c ${FLAGS}
 
