@@ -1,0 +1,9 @@
+Return vals
+PreOrder: 5 3 2 1 4 8 6 7 9
+InOrder: 1 2 3 4 5 6 7 8 9
+PostOrder: 1 2 4 3 7 6 9 8 5
+
+Best for
+Deep Copy: Pre Order
+Delete Tree: Post Order
+Sorted Print: In Order
