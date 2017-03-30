@@ -1,0 +1,34 @@
+John McClane
+30
+James Bond
+30
+Indiana Jones
+30
+John Rambo
+30
+Han Solo
+30
+Ellen Ripley
+30
+Snake Plissken
+30
+Sarah Connor
+30
+Tyler Durden
+30
+Ash Williams
+30
+Lara Croft
+30
+James T Kirk
+30
+Chuck Norris
+30
+Josey Wales
+30
+Dirty Harry
+30
+Rocky Balboa
+30
+Batman
+30
