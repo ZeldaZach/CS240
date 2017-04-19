@@ -26,6 +26,7 @@ class Heap
 		std::vector<Player> getArray();
 		bool empty();
 		unsigned int size();
+		bool isInteger(const String &s);
 };
 
 #endif

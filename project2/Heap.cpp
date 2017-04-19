@@ -9,6 +9,18 @@ Heap::Heap() : sortLength(0)
 {
 }
 
+// Taken from https://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int
+bool Heap::isInteger(const String &s)
+{
+   if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+')))
+	   return false;
+
+   char *p;
+   strtol(s.c_str(), &p, 10);
+
+   return (*p == 0);
+}
+
 Heap::Heap(String filename) : sortLength(0)
 {
 	std::ifstream file(filename);
@@ -19,9 +31,23 @@ Heap::Heap(String filename) : sortLength(0)
 	String line;
 	while (std::getline(file, line)) // line = name
 	{
-		String name = line;
-		
+		if (isInteger(line))
+		{
+			sortLength = 0;
+			members.clear();
+			return; // FILE_MALFORMED
+		}
+
+		String name = line;		
 		std::getline(file, line); // line = budget
+
+		if (!isInteger(line))
+		{
+			sortLength = 0;
+			members.clear();
+			return; // FILE_MALFORMED
+		}
+
 		unsigned int budget = stoi(line);
 
 		Player p(name, budget);

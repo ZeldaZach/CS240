@@ -262,9 +262,13 @@ int main(){
 	cerr << "\n\t========================PASS========================\n" << endl;
 	
 	/*
-	 * 
+	 * Test to make sure that if the file is malformed, an error is returned and we do not crash.
+	 * A file should be <User>\n<int>\n<User>\n<int> ...  but what happens if we're out of order / bad file?
 	 */
-	cerr << "\n\tTEST #10: " << endl;
+	cerr << "\n\tTEST #10: Malformed files should result in an empty set" << endl;
+	Heap t10("players3.txt");
+	assert(t10.size() == 0);
+	
 	cerr << "\n\t========================PASS========================\n" << endl;
 
 	return 0;
