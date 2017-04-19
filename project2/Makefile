@@ -19,7 +19,7 @@ Player.o: Player.cpp Player.h Card.o
 Card.o: Card.cpp Card.h
 	g++ Card.cpp -o Card.o $(D_FLAGS) -c
 
-Deck.o: Deck.cpp Deck.h Queue.h
+Deck.o: Deck.cpp Deck.h Queue.h LinkedList.h
 	g++ Deck.cpp -o Deck.o $(D_FLAGS) -c
 
 Table.o: Table.cpp Table.h

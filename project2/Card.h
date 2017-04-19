@@ -14,6 +14,7 @@ class Card
 		int getValue() { return value; }
 		int getSuit() { return suit; }
 		bool operator==(const Card &);
+		bool operator>(const Card &);
 };
 
 #endif

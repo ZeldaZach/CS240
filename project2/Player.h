@@ -15,11 +15,13 @@ class Player
 	public:
 		Card hand;
 		
+		Player();
 		Player(String, int);
 		String getName();
 		int getBudget();
 		bool bet(int);
 		void collectWinnings(int);
+		bool operator==(const Player &);
 };
 
 #endif

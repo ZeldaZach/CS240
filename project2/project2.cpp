@@ -52,45 +52,61 @@ int main(){
 
 	cerr << "\n\tTEST #1: Create Players and store them in a heap" << endl;
 	Heap tourney("players.txt");
+	
 	assert(isHeap(tourney.getArray(), 0));
 	assert(tourney.size() == 17);
 	cerr << "\n\t========================PASS========================\n" << endl;
 
 	cerr << "\n\tTEST #2: Players stored in correct order when removed from the heap" << endl;
 
-	Player 	p = tourney.getPlayer();
+	Player 	p = tourney.getPlayer();	
 	assert(p.getBudget()==200);
 	p = tourney.getPlayer();
 	assert(p.getBudget()==150);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==150);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==150);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==100);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==80);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==70);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==60);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==55);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==50);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==45);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==38);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==33);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==30);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==20);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==15);
 	p = tourney.getPlayer();
+	
 	assert(p.getBudget()==10);
 
 	cerr << "\n\t========================PASS========================\n" << endl;
@@ -196,8 +212,60 @@ int main(){
 	highcardTable3.printWinner();
 	cerr << "\n\t========================PASS========================\n" << endl;
 
-	//####################Your Tests#####################//
-	//cerr << "\n\tTEST #9: Two tests of your own" << endl;
+	/*
+	 * Test to see if the winners have been receiving the correct amount of money from the pot
+	 * It's possible that players have been added to the table, only to be booted right away
+	 * for not being able to afford the ante. As such, the winner doesn't necessarily win
+	 * player_count * ante for themselves. 
+	 */
+	cerr << "\n\tTEST #9: Check if winner receives correct payment" << endl;
+	int player_count = 6;
+	ante = 50;
+
+	Heap tourney9("players.txt");
+	Heap tourney9_bk("players.txt");
+	Table game9(player_count, ante);
+	
+	assert(isHeap(tourney9.getArray(), 0));
+	assert(tourney9.size() == 17);
+	
+	while (!tourney9.empty() && game9.emptySeat())
+		game9.addPlayer(tourney9.getPlayer());
+	
+	assert(verifyHeap(tourney9));
+	assert(isHeap(tourney9.getArray(), 0));
+	
+	// Now we will determine how much money the pot should have
+	int pot = 0;
+	for (auto i : game9.getPlayers())
+	{
+		if (i.bet(ante))
+		{
+			pot += ante;
+			i.collectWinnings(ante);
+		}
+	}
+	
+	game9.playRound();
+
+	// Now lets confirm the winner recived the correct amount
+	Player winner = game9.getWinner();
+
+	for (auto i : tourney9_bk.getArray())
+	{
+		if (i.getName() == winner.getName())
+		{
+			assert(winner.getBudget() == pot - ante + i.getBudget());
+			break;
+		}
+	}
+	cerr << "\n\t========================PASS========================\n" << endl;
+	
+	/*
+	 * 
+	 */
+	cerr << "\n\tTEST #10: " << endl;
+	cerr << "\n\t========================PASS========================\n" << endl;
 
 	return 0;
 }

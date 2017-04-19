@@ -10,16 +10,14 @@
 class Heap
 {
 	private:
-		std::vector<Player> members;
-		unsigned int length;
-		unsigned int sortLength;
+		int sortLength;
 		
 		void heapify();
 		void siftdown(int);
-		bool isLeaf(int);
 		void swap(int, int);
 
 	public:
+		std::vector<Player> members;
 		Heap();
 		Heap(String);
 		Heap(const Heap &);

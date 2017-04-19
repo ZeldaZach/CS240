@@ -5,68 +5,66 @@
 #include <cstdlib>
 #include "Heap.h"
 
-Heap::Heap() : length(0), sortLength(0)
+Heap::Heap() : sortLength(0)
 {
-	
 }
 
-Heap::Heap(String filename) : length(0), sortLength(0)
+Heap::Heap(String filename) : sortLength(0)
 {
 	std::ifstream file(filename);
 	
 	if (file == NULL)
-		std::exit(404); // FILE_NOT_FOUND
+		return; // FILE_NOT_FOUND
 	
 	String line;
-	while (std::getline(file, line))
+	while (std::getline(file, line)) // line = name
 	{
 		String name = line;
 		
-		std::getline(file, line); // line = budget now
+		std::getline(file, line); // line = budget
 		unsigned int budget = stoi(line);
 
 		Player p(name, budget);
-		this->members.push_back(p);
-		this->length++;
-		this->sortLength++;
+		members.push_back(p);
 	}
+	
+	sortLength = members.size();
+	heapify();
 }
 
-Heap::Heap(const Heap &old) : length(old.length), sortLength(old.sortLength)
+Heap::Heap(const Heap &old) : sortLength(old.sortLength)
 {
 	for (auto i = old.members.begin(); i != old.members.end(); i++)
 		this->members.push_back(*i);
+	
+	heapify();
 }
 
 void Heap::heapify()
 {
-	for (int i = (length - 2) / 2; i >= 0; i--)
+	for (int i = (sortLength - 2)/2; i >= 0; i--)
 		siftdown(i);
 }
 
-void Heap::siftdown(int i)
+void Heap::siftdown(int pos)
 {
-	if (i < 0 || i > length)
-		return;
+	int lChild = 2*pos+1;
+	int rChild = 2*pos+2;
+	int largest;
 	
-	while (!isLeaf(i))
+	if (lChild < sortLength && members.at(lChild).getBudget() > members.at(pos).getBudget())
+		largest = lChild;
+	else
+		largest = pos;
+	
+	if (rChild < sortLength && members.at(rChild).getBudget() > members.at(largest).getBudget())
+		largest = rChild;
+	
+	if (largest != pos)
 	{
-		int cIndex = 2*i+1;
-		
-		if ((cIndex+1 < length) && (members.at(cIndex).getBudget() < members.at(cIndex+1).getBudget()))
-			cIndex++;
-		
-		if (members.at(i).getBudget() > members.at(cIndex).getBudget())
-			return;
-		
-		swap(i, cIndex);
-		i = cIndex;
+		swap(largest, pos);
+		siftdown(largest);
 	}
-}
-
-bool Heap::isLeaf(int i)
-{
-	return (2*i+1 >= length && 2*i+2 >= length);
 }
 
 void Heap::swap(int x, int y)
@@ -79,16 +77,24 @@ void Heap::swap(int x, int y)
 void Heap::addPlayer(Player p)
 {
 	this->members.push_back(p);
-	this->length++;
 	this->sortLength++;
+	heapify();
 }
 
 Player Heap::getPlayer()
 {
-	members.erase(members.begin()); // Erase highest priority
-	length--;
+	if (this->size() == 0)
+		return Player();
+
+	Player retVal = members.at(0);
+	
+	swap(0, sortLength-1);
 	sortLength--;
-	heapify();
+	
+	members.erase(members.end());
+
+	siftdown(0);
+	return retVal;
 }
 
 std::vector<Player> Heap::getArray()
@@ -98,10 +104,10 @@ std::vector<Player> Heap::getArray()
 
 bool Heap::empty()
 {
-	return (length == 0);
+	return (members.size() == 0);
 }
 
 unsigned int Heap::size()
 {
-	return length;
+	return members.size();
 }

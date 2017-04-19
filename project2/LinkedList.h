@@ -109,6 +109,9 @@ void LinkedList<T>::insert(T data)
 template <class T>
 T& LinkedList<T>::read()
 {
+	if (this == NULL)
+		std::exit(1);
+
 	if (this->iterator == NULL)
 	{
 		if (this->head == NULL)

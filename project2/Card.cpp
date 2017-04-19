@@ -27,3 +27,8 @@ bool Card::operator==(const Card &other)
 {
 	return ((this->suit == other.suit) && (this->value == other.value));
 }
+
+bool Card::operator>(const Card &other)
+{
+	return (this->value > other.value);
+}
