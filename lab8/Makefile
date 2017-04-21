@@ -7,6 +7,9 @@ all: $(PROJ_NAME)
 $(PROJ_NAME): $(ALL_OBJ)
 	g++ $(ALL_OBJ) -o $(PROJ_NAME) $(D_FLAGS)
 
+lab8.o: lab8.cpp
+	g++ -c lab8.cpp -o lab8.o $(D_FLAGS)
+
 Hash.o: Hash.cpp Hash.h
 	g++ -c Hash.cpp -o Hash.o $(D_FLAGS)
 
