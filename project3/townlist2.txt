@@ -1,0 +1,11 @@
+attilan 6 7
+wakanda 2 6
+doomstadt 4 7
+madripoor 2 3
+kun-lun 4 1
+gotham 7 2
+metropolis 6 1
+genosha 4 5
+asgard 2 5
+smallville 6 2
+nyc 1 4

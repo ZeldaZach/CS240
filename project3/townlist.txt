@@ -1,0 +1,8 @@
+mogadishu 6 7
+fairbanks 3 5
+nyc 4 7
+paris 3 2
+tokyo 4 2
+mumbai 7 2
+sydney 6 2
+beijing 4 5
