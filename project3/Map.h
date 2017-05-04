@@ -10,6 +10,7 @@ class Map
 {
 	public:
 		Map(String);
+		~Map();
 		City* findByName(String);
 		std::vector<City *> shortestPath(City*, City*);
 		unsigned int pathDistance(City*, City*);
@@ -22,6 +23,10 @@ class Map
 		void addAdjacencies();
 		void setMaxCoordinates();
 		City* getClosestCity(std::vector<City *>::iterator, Map::Direction, Map::Direction);
+		City* getClosestCityInAllDirections(City *);
+		City* getMinimumVertex();
+		int getDistanceBetween(City *, City *);
+		void printDEBUGTable();
 };
 
 #endif

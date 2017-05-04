@@ -126,7 +126,7 @@ int main(int argc, char *argv[]){
 
 	cerr << "\n\tTEST #4: Less Simple Shortest Path" << endl;
 
-	path = {"nyc","beijing", "fairbanks"};
+	path = {"nyc", "beijing", "fairbanks"};
 	checkPath(map, path, "nyc", "fairbanks");
 
 	cerr << "\n\t========================PASS========================\n" << endl;

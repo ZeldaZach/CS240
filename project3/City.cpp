@@ -1,7 +1,8 @@
 #include "City.h"
 #include <list>
+#include <climits>
 
-City::City(String cityName, int xCoor, int yCoor) : name(cityName), x(xCoor), y(yCoor)
+City::City(String cityName, int xCoor, int yCoor) : name(cityName), x(xCoor), y(yCoor), optimalPrevious(nullptr), distance(INT_MAX), fullyExplored(false)
 {
 }
 
@@ -26,4 +27,24 @@ bool City::operator<(City &c)
 bool City::operator==(City &c)
 {
 	return (c.getName() == this->name && c.getXCoor() == this->getXCoor() && c.getYCoor() == this->getYCoor());
+}
+
+void City::setOptimalPrevious(City* prev)
+{
+	optimalPrevious = prev;
+}
+
+void City::setDistance(int d)
+{
+	distance = d;
+}
+
+void City::setFullyExplored(bool b)
+{
+	fullyExplored = b;
+}
+
+void City::setTheClosestCity(City *c)
+{
+	theClosestCity = c;
 }

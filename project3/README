@@ -1,0 +1,41 @@
+CS240 Data Objects
+Spring 2017
+Project 3 README FILE
+
+Due Date: 5/10/17
+Submission Date: 5/4/17
+Author(s): Zach Halpern
+
+PERCENT COMPLETE: 100%
+
+PARTS THAT ARE NOT COMPLETE: N/A
+
+BUGS: None known of
+
+FILES:
+.
+├── City.cpp
+├── City.h
+├── Makefile
+├── Map.cpp
+├── Map.h
+├── project3.cpp
+├── README
+├── townlist2.txt
+└── townlist.txt
+
+TO RUN:
+$ unzip project3.zip -d project3
+$ cd project3
+$ make
+$ make checkmem
+$ make run
+
+EXTRA CREDIT: N/A
+
+BIBLIOGRAPHY:
+https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++
+http://www.gitta.info/Accessibiliti/en/html/Dijkstra_learningObject1.html
+http://en.cppreference.com/w/cpp/io/manip/setw
+
+MISCELLANEOUS: N/A
