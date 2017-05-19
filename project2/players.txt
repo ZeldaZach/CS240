@@ -1,0 +1,34 @@
+John McClane
+30
+James Bond
+150
+Indiana Jones
+50
+John Rambo
+20
+Han Solo
+15
+Ellen Ripley
+70
+Snake Plissken
+33
+Sarah Connor
+55
+Tyler Durden
+100
+Ash Williams
+10
+Lara Croft
+150
+James T Kirk
+80
+Chuck Norris
+200
+Josey Wales
+60
+Dirty Harry
+45
+Rocky Balboa
+38
+Batman
+150
